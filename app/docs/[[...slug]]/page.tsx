@@ -1,12 +1,14 @@
 import { notFound } from 'next/navigation'
 import { ArticleBreadcrumb } from '@/components/article/breadcrumb'
+import { DocumentHeader } from '@/components/article/document-header'
 import { Pagination } from '@/components/article/pagination'
 import { TableOfContents } from '@/components/toc'
-import { Separator } from '@/components/ui/separator'
 import { Typography } from '@/components/ui/typography'
 import { getDocument } from '@/lib/markdown'
 import { PageRoutes } from '@/lib/pageroutes'
 import { Settings } from '@/types/settings'
+
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ slug: string[] }>
@@ -22,14 +24,10 @@ export default async function Pages({ params }: PageProps) {
   const { frontmatter, content, tocs } = res
 
   return (
-    <div className="flex items-start gap-10">
-      <section className="flex-3">
+    <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+      <section className="min-w-0 flex-1">
         <ArticleBreadcrumb paths={slug} />
-        <div className="space-y-4">
-          <h1 className="text-3xl font-semibold">{frontmatter.title}</h1>
-          <p className="text-sm">{frontmatter.description}</p>
-          <Separator />
-        </div>
+        <DocumentHeader title={frontmatter.title} description={frontmatter.description} />
         <Typography>
           <section>{content}</section>
           <Pagination pathname={pathName} />

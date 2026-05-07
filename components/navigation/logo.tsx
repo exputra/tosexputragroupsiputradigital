@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Link } from '@/lib/transition'
 
 import { Settings } from '@/types/settings'
@@ -9,19 +8,15 @@ export const Logo = () => {
       href="/"
       title={`${Settings.title} main logo`}
       aria-label={`${Settings.title} main logo`}
-      className="items-center gap-2.5 hidden md:flex"
+      className="inline-flex shrink-0 items-center"
     >
-      <Image
+      <img
         src={Settings.siteicon}
         alt={`${Settings.title} main logo`}
         title={`${Settings.title} main logo`}
         aria-label={`${Settings.title} main logo`}
-        width={34}
-        height={34}
-        loading="lazy"
-        decoding="async"
+        className="block h-auto w-[96px] max-w-none shrink-0 object-contain sm:w-[140px] lg:w-[220px]"
       />
-      <span className="text-md font-semibold">{Settings.title}</span>
     </Link>
   )
 }

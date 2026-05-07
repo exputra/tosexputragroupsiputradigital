@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   description: Settings.description,
   keywords: Settings.keywords,
+  icons: {
+    icon: Settings.siteicon,
+  },
   openGraph: {
     type: Settings.openGraph.type,
     url: baseUrl,
@@ -58,7 +61,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-regular antialiased`}>
         <Providers>
           <Navbar />
-          <main className="h-auto px-5 sm:px-8">{children}</main>
+          <main className="h-auto px-4 sm:px-6 lg:px-8">{children}</main>
           <Footer />
         </Providers>
       </body>

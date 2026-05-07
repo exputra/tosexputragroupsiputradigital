@@ -2,98 +2,24 @@ import { Paths } from '@/lib/pageroutes'
 
 export const Documents: Paths[] = [
   {
-    heading: 'Introduction',
-    title: 'Basic Setup',
-    href: '/basic-setup',
-    items: [
-      {
-        title: 'Installation',
-        href: '/installation',
-      },
-      {
-        title: 'Setup',
-        href: '/setup',
-      },
-      {
-        title: 'Changelog',
-        href: '/changelog',
-      },
-    ],
+    heading: 'Sidebar Menu',
+    title: 'Terms of Service',
+    href: '/terms-of-service',
   },
   {
-    spacer: true,
+    title: 'Privacy Policy',
+    href: '/privacy-policy',
   },
   {
-    title: 'Navigation',
-    href: '/navigation',
-    heading: 'Documents',
+    title: 'Refund Policy',
+    href: '/refund-policy',
   },
   {
-    title: 'Structure',
-    href: '/structure',
-    items: [
-      {
-        title: 'Deep',
-        href: '/deep',
-        items: [
-          {
-            title: 'Deeper',
-            href: '/deeper',
-            items: [
-              {
-                title: 'Even deeper',
-                href: '/even-deeper',
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    title: 'Maintenance & Support Policy',
+    href: '/maintenance-support-policy',
   },
   {
-    spacer: true,
-  },
-  {
-    title: 'Markdown',
-    href: '/markdown',
-    heading: 'Components',
-    items: [
-      {
-        title: 'Cards',
-        href: '/cards',
-      },
-      {
-        title: 'Diagrams',
-        href: '/diagrams',
-      },
-      {
-        title: 'Filetree',
-        href: '/filetree',
-      },
-      {
-        title: 'Lists',
-        href: '/lists',
-      },
-      {
-        title: 'Maths',
-        href: '/maths',
-      },
-      {
-        title: 'Notes',
-        href: '/notes',
-      },
-      {
-        title: 'Steps',
-        href: '/steps',
-      },
-      {
-        title: 'Table',
-        href: '/table',
-      },
-      {
-        title: 'Tabs',
-        href: '/tabs',
-      },
-    ],
+    title: 'DMCA Policy',
+    href: '/dmca-policy',
   },
 ]

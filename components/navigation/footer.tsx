@@ -28,7 +28,7 @@ export function Footer() {
             target="_blank"
           >
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="Rubix Studios logo"
               title="Rubix Studios logo"
               aria-label="Rubix Studios logo"

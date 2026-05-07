@@ -3,10 +3,12 @@
 import { usePathname } from 'next/navigation'
 import SubLink from '@/components/sidebar/sublink'
 import { Separator } from '@/components/ui/separator'
+import { useLanguage } from '@/lib/language'
 import { Routes } from '@/lib/pageroutes'
 
 export function PageMenu({ isSheet = false }) {
   const pathname = usePathname()
+  const { t } = useLanguage()
   if (!pathname.startsWith('/docs')) return null
 
   return (
@@ -17,7 +19,11 @@ export function PageMenu({ isSheet = false }) {
         }
         return (
           <div key={item.title + index}>
-            {item.heading && <div className="mb-4 text-sm font-bold">{item.heading}</div>}
+            {item.heading && (
+              <div className="mb-4 text-sm font-bold">
+                {item.heading === 'Sidebar Menu' ? t('sidebarMenu') : item.heading}
+              </div>
+            )}
             <SubLink
               {...{
                 ...item,

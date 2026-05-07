@@ -1,6 +1,7 @@
 import { createReadStream, promises as fs } from 'fs'
 import type { Element, Text } from 'hast'
 import { compileMDX } from 'next-mdx-remote/rsc'
+import { cookies } from 'next/headers'
 import path from 'path'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeCodeTitles from 'rehype-code-titles'
@@ -49,25 +50,42 @@ async function parseMdx<Frontmatter>(rawMdx: string) {
   })
 }
 
-const documentPath = (slug: string) => {
-  return Settings.gitload
-    ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/index.mdx`
-    : path.join(process.cwd(), '/contents/docs/', `${slug}/index.mdx`)
+async function getPreferredLanguage() {
+  const cookieStore = await cookies()
+  return cookieStore.get('site-language')?.value === 'id' ? 'id' : 'en'
 }
 
-const getDocumentPath = (() => {
-  const cache = new Map<string, string>()
-  return (slug: string) => {
-    if (!cache.has(slug)) {
-      cache.set(slug, documentPath(slug))
-    }
-    return cache.get(slug)!
+async function getLocalDocumentCandidates(slug: string) {
+  const language = await getPreferredLanguage()
+  const englishPath = path.join(process.cwd(), 'contents/docs', slug, 'index.mdx')
+
+  if (language === 'id') {
+    return [path.join(process.cwd(), 'contents/id/docs', slug, 'index.mdx'), englishPath]
   }
-})()
+
+  return [englishPath]
+}
+
+async function resolveLocalDocumentPath(slug: string) {
+  const candidates = await getLocalDocumentCandidates(slug)
+
+  for (const candidate of candidates) {
+    try {
+      await fs.access(candidate)
+      return candidate
+    } catch {
+      continue
+    }
+  }
+
+  return candidates[candidates.length - 1]
+}
 
 export async function getDocument(slug: string) {
   try {
-    const contentPath = getDocumentPath(slug)
+    const contentPath = Settings.gitload
+      ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/index.mdx`
+      : await resolveLocalDocumentPath(slug)
     let rawMdx = ''
     let lastUpdated: string | null = null
 
@@ -124,7 +142,7 @@ export async function getTable(
       return []
     }
   } else {
-    const contentPath = path.join(process.cwd(), '/contents/docs/', `${slug}/index.mdx`)
+    const contentPath = await resolveLocalDocumentPath(slug)
     try {
       const stream = createReadStream(contentPath, { encoding: 'utf-8' })
       for await (const chunk of stream) {

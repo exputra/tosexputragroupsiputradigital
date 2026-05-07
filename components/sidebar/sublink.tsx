@@ -1,3 +1,5 @@
+'use client'
+
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { LuChevronDown, LuChevronRight } from 'react-icons/lu'
@@ -5,6 +7,7 @@ import Anchor from '@/components/anchor'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { SheetClose } from '@/components/ui/sheet'
+import { useLanguage } from '@/lib/language'
 import { Paths } from '@/lib/pageroutes'
 import { cn } from '@/lib/utils'
 
@@ -15,6 +18,7 @@ function isRoute(item: Paths): item is Extract<Paths, { title: string; href: str
 export default function SubLink(props: Paths & { level: number; isSheet: boolean }) {
   const path = usePathname()
   const [isOpen, setIsOpen] = useState(true)
+  const { t } = useLanguage()
 
   useEffect(() => {
     if (isRoute(props) && props.href && path !== props.href && path.includes(props.href)) {
@@ -25,10 +29,22 @@ export default function SubLink(props: Paths & { level: number; isSheet: boolean
   if (!isRoute(props)) return
 
   const { title, href, items, noLink, level, isSheet } = props
+  const translatedTitle =
+    title === 'Terms of Service'
+      ? t('termsOfService')
+      : title === 'Privacy Policy'
+        ? t('privacyPolicy')
+        : title === 'Refund Policy'
+          ? t('refundPolicy')
+          : title === 'Maintenance & Support Policy'
+            ? t('maintenanceSupportPolicy')
+            : title === 'DMCA Policy'
+              ? t('dmcaPolicy')
+              : title
 
   const Comp = (
     <Anchor activeClassName="text-primary text-sm font-semibold" href={href}>
-      {title}
+      {translatedTitle}
     </Anchor>
   )
 
@@ -39,7 +55,7 @@ export default function SubLink(props: Paths & { level: number; isSheet: boolean
       Comp
     )
   ) : (
-    <h2 className="font-bold text-primary sm:text-sm">{title}</h2>
+    <h2 className="font-bold text-primary sm:text-sm">{translatedTitle}</h2>
   )
 
   if (!items) {
