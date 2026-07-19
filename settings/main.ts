@@ -4,15 +4,15 @@ export const siteicon = '/logo.png'
 export const gtm = 'GTM-XXXXXXX'
 export const gtmconnected = true
 
-export const sitename = 'Siputra Digital'
+export const sitename = 'Exputra Digital'
 export const description =
-  'Service terms, policies, and official information of Siputra Digital.'
+  'Service terms, policies, and official information of Exputra Digital.'
 export const keywords = ['terms and policies', 'siputra digital', 'privacy policy', 'refund policy']
 export const urlimage = '/images/og-image.png'
-export const imagealt = 'Siputra Digital Logo'
+export const imagealt = 'Exputra Digital Logo'
 export const twitterhandle = '@RubixStudios'
 
-export const companyname = 'Siputra Digital'
+export const companyname = 'Exputra Digital'
 export const companylink = 'mailto:support@siputradigital.com'
 
 export const branding = true
