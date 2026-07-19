@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "clean": "pnpm biome check --write",
-    "update": "pnpm update --latest --recursive && pnpm install && pnpm prune && pnpm dedupe && pnpm run clean"
+    "update": "pnpm update --latest --recursive && pnpm install && pnpm prune && pnpm dedupe && pnpm run clean",
+    "generate-content-json": "tsx scripts/generate-content-json.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.4",
